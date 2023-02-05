@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # FP
     'map',
+    # TP
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
