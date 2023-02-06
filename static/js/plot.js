@@ -1,11 +1,19 @@
 var mapData;
 
 $(function() {
+    loadPlot();
+});
+
+/**
+* Executa rotina para carregar os dados do mapa.
+*/
+function loadPlot(reload=false) {
+    if (reload) document.getElementById('mapDiv').innerHTML = "";
     collectMapData();
     const structuredData = structurePlotData();
     Plotly.newPlot('mapDiv', structuredData["data"], structuredData["layout"]);
     plotClickEvent();
-});
+};
 
 /**
 * Conclui estruturação de dados para plotly.
@@ -32,7 +40,7 @@ function structurePlotData() {
             size: 8
         },
         autosize: true,
-        height: 800,
+        height: 600,
         geo: {
             projection: {
                 type: 'equirectangular'
@@ -54,20 +62,6 @@ function plotClickEvent() {
     myPlot.on('plotly_click', function(data){
         var pts = 'x = ' + data.points[0].lon +'\ny = ' + data.points[0].lat.toPrecision(4) + '\n\n';
         alert('Closest point clicked:\n\n' + pts);
-    });
-};
-
-/**
-* Coleta dados do mapa da API.
-*/
-function collectMapData() {
-    $.ajax({
-        type: 'GET',
-        url: `api/map/`,
-        async: false,
-        success: function(data) {
-            mapData = structureData(data);
-        }
     });
 };
 
