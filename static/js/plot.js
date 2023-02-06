@@ -1,47 +1,35 @@
+var mapData;
+
 $(function() {
-    const PLOTDATA = testData();
-    Plotly.newPlot('mapDiv', PLOTDATA["data"], PLOTDATA["layout"]);
+    collectMapData();
+    const structuredData = structurePlotData();
+    Plotly.newPlot('mapDiv', structuredData["data"], structuredData["layout"]);
     plotClickEvent();
 });
 
-function testData() {
+/**
+* Conclui estruturação de dados para plotly.
+*/
+function structurePlotData() {
     // REF: https://plotly.com/javascript/scatter-plots-on-maps/
     const DATA = [{
         type: 'scattergeo',
         mode: 'markers+text',
-        text: [
-            'Montreal', 'Toronto', 'Vancouver', 'Calgary', 'Edmonton',
-            'Ottawa', 'Halifax', 'Victoria', 'Winnepeg', 'Regina'
-        ],
-        lon: [
-            -73.57, -79.24, -123.06, -114.1, -113.28,
-            -75.43, -63.57, -123.21, -97.13, -104.6
-        ],
-        lat: [
-            45.5, 43.4, 49.13, 51.1, 53.34, 45.24,
-            44.64, 48.25, 49.89, 50.45
-        ],
+        text: mapData["text"],
+        lon: mapData["lon"],
+        lat: mapData["lat"],
         marker: {
-            size: 7,
+            size: 8,
             line: {
                 width: 1
             }
         },
-        autocolorscale: true,
-        name: 'Canadian cities',
-        textposition: [
-            'top right', 'top left', 'top center', 'bottom right', 'top right',
-            'top left', 'bottom right', 'bottom left', 'top right', 'top right'
-        ],
+        textposition: 'bottom right',
     }];
     const LAYOUT = {
-        title: 'Canadian cities',
         font: {
             family: 'Droid Serif, serif',
-            size: 6
-        },
-        titlefont: {
-            size: 16
+            size: 8
         },
         autosize: true,
         height: 800,
@@ -57,6 +45,9 @@ function testData() {
     };
 };
 
+/**
+* Evento ao clicar em um ponto no mapa.
+*/
 function plotClickEvent() {
     // https://plotly.com/javascript/click-events/
     var myPlot = document.getElementById('mapDiv')
@@ -64,4 +55,37 @@ function plotClickEvent() {
         var pts = 'x = ' + data.points[0].lon +'\ny = ' + data.points[0].lat.toPrecision(4) + '\n\n';
         alert('Closest point clicked:\n\n' + pts);
     });
-}
+};
+
+/**
+* Coleta dados do mapa da API.
+*/
+function collectMapData() {
+    $.ajax({
+        type: 'GET',
+        url: `api/map/`,
+        async: false,
+        success: function(data) {
+            mapData = structureData(data);
+        }
+    });
+};
+
+/**
+* Estrutura os dados da API para utilizar no plotly.
+*/
+function structureData(data) {
+    var text = [];
+    var lon = [];
+    var lat = [];
+    for (let i=0; i<data.length; i++) {
+        text.push(`${data[i]["name"]} - #${data[i]["id"]}`);
+        lon.push(Number(data[i]["longitude"]));
+        lat.push(Number(data[i]["latitude"]));
+    };
+    return {
+        'text': text,
+        'lon': lon,
+        'lat': lat,
+    }
+};
