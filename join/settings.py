@@ -78,13 +78,24 @@ WSGI_APPLICATION = 'join.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
+DB = {
+    'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    },
+    'postgresql': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'join',
+        'USER': 'postgres',
+        'PASSWORD': 'senha123',
+        'HOST': '172.29.0.1',
+        'PORT': '5433',
+    },
 }
 
+DATABASES = {
+    'default': DB['postgresql']
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
