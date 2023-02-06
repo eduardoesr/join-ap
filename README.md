@@ -18,7 +18,7 @@
 * Faça a migração caso estiver utilizando o site pela primeira vez: `python manage.py migrate`.
 * Inicie o site: `python manage.py runserver 8000`.
 
-Observação 1: A API pode ser acessada diretamente em `http://localhost:8000/api/map/` (criar), e em `http://localhost:8000/api/map/<id>` (alterar/deletar).
+Observação 1: A API pode ser acessada diretamente em `http://localhost:8000/api/map/` (criar), e em `http://localhost:8000/api/map/<id>/` (alterar/deletar).
 
 Observação 2: Por padrão o settings.py está configurado para utilizar PostgreSQL.
 
