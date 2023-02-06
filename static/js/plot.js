@@ -4,6 +4,10 @@ var targetData;
 
 $(function() {
     loadPlot();
+    // Apagar form do modal quando fechado.
+    $('#newTargetModal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset');
+    })
 });
 
 /**

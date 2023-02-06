@@ -23,8 +23,8 @@ function createDataPoint() {
         data: {
             'csrfmiddlewaretoken': document.querySelector('input[name="csrfmiddlewaretoken"]').value,
             'name': document.getElementById('newTargetName').value,
-            'longitude': document.getElementById('newLatitude').value,
-            'latitude': document.getElementById('newLongitude').value,
+            'longitude': document.getElementById('newLongitude').value,
+            'latitude': document.getElementById('newLatitude').value,
             'expiration_date': document.getElementById('newDate').value,
         },
         success: function(data) {
@@ -35,6 +35,9 @@ function createDataPoint() {
             console.log(jqXhr)
         },
     });
+    const MODAL = document.getElementById('newTargetModal');
+    const BS_MODAL = bootstrap.Modal.getInstance(MODAL);
+    BS_MODAL.hide();
 };
 
 /**
