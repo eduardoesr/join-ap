@@ -36,3 +36,53 @@ function createDataPoint() {
         },
     });
 };
+
+/**
+* Alterar um alvo no mapa.
+*/
+function updateDataPoint() {
+    var targetId = document.getElementById('deleteTargetNumber').innerHTML;
+    $.ajax({
+        type: 'PATCH',
+        url: `api/map/${targetId}/`,
+        async: false,
+        headers: {
+            "X-CSRFToken": document.querySelector('input[name="csrfmiddlewaretoken"]').value,
+        },
+        data: {
+            'name': document.getElementById('updateTargetName').value,
+            'longitude': document.getElementById('updateLongitude').value,
+            'latitude': document.getElementById('updateLatitude').value,
+            'expiration_date': document.getElementById('updateDate').value,
+        },
+        success: function(data) {
+            loadPlot(true);
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log('ERROR')
+            console.log(jqXhr)
+        },
+    });
+};
+
+/**
+* Apaga um alvo do mapa.
+*/
+function deleteDataPoint() {
+    var targetId = document.getElementById('deleteTargetNumber').innerHTML;
+    $.ajax({
+        type: 'DELETE',
+        url: `api/map/${targetId}/`,
+        async: false,
+        headers: {
+            "X-CSRFToken": document.querySelector('input[name="csrfmiddlewaretoken"]').value,
+        },
+        success: function(data) {
+            loadPlot(true);
+        },
+        error: function (jqXhr, textStatus, errorThrown) {
+            console.log('ERROR')
+            console.log(jqXhr)
+        },
+    });
+};
