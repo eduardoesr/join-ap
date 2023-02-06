@@ -85,11 +85,11 @@ DB = {
     },
     'postgresql': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'join',
-        'USER': 'postgres',
-        'PASSWORD': 'senha123',
-        'HOST': '172.29.0.1',
-        'PORT': '5433',
+        'NAME': '-',
+        'USER': '-',
+        'PASSWORD': '-',
+        'HOST': '-',
+        'PORT': '-',
     },
 }
 
