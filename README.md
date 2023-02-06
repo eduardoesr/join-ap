@@ -30,7 +30,7 @@ Observações:
 * `<id>` se refere a um número inteiro.
 * Request `PATCH` não exige envio de todos os parâmetros.
 
-Os endpoints `POST api/map/` (necessita de todos) e `PATCH /api/map/<id>` (aceita parcial) recebem os seguintes parâmetros:
+Os endpoints `POST /api/map/` (necessita de todos) e `PATCH /api/map/<id>` (aceita parcial) recebem os seguintes parâmetros:
 
 | Parâmetro | Tipo |
 |-|-|
