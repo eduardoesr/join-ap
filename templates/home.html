@@ -1,1 +1,10 @@
-TESTE
+{% extends 'components/base.html' %}
+{% block content %}
+{% load static %}
+<script src="{% static 'js/plot.js' %}"></script>
+
+<div class="container mt-5">
+    <div class="w-100" id="mapDiv"></div>
+</div>
+
+{% endblock content %}
